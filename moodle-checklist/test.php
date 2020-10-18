@@ -3,17 +3,22 @@
 use mod_checklist\local\checklist_item;
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
-require_once(dirname(__FILE__) . '/lib.php');
-require_once(dirname(__FILE__) . '/locallib.php');
-
+require_once(dirname(__FILE__) . '/importexportfields.php');
+global $CFG, $PAGE, $OUTPUT, $DB;
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->libdir . '/csvlib.class.php');
 
-global $CFG, $PAGE, $OUTPUT, $DB, $USER;
 
 $userid = $USER->id;
-$id = required_param('id', PARAM_INT);
+$id = required_param('id', PARAM_INT); // Course module id.
+
 $cm = get_coursemodule_from_id('checklist', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+$checklist = $DB->get_record('checklist', array('id' => $cm->instance), '*', MUST_EXIST);
+
+$url = new moodle_url('/mod/checklist/import.php', array('id' => $cm->id));
+$PAGE->set_url($url);
+require_login($course, true, $cm);
 
 //$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
@@ -80,6 +85,7 @@ if ($iscombo) {
     if ($result->num_rows > 0) {
         //echo strval ($result);
         echo "<form action='insert.php'>";
+        echo "<input type='hidden' name='id' value='" . $id . "' />";
         echo "<label>Select creteria:</label>";
         echo "<select name='checkid'>";
         while ($row1 = $result->fetch_assoc()) {
