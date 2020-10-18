@@ -15,10 +15,17 @@ $userid = $USER->id;
 $id = required_param('id', PARAM_INT);
 $cm = get_coursemodule_from_id('checklist', $id, 0, false, MUST_EXIST);
 
+//$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+
+
+// $PAGE->set_title($pagetitle);
+// $PAGE->set_heading($course->fullname);
 
 echo $OUTPUT->header();
 echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter checklistbox');
+
 echo html_writer::tag('div', '&nbsp;', array('id' => 'checklistspinner'));
+//require_login($course, true, $cm);
 
 // echo '&nbsp;&nbsp;<form style="display: block;" action="test.php" method="post" />';
 // echo '<input type="text" name="breed" value="" />';

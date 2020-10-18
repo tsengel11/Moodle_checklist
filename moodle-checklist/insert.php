@@ -16,12 +16,7 @@ echo $OUTPUT->header();
 echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter checklistbox');
 
 require_login($course, true, $cm);
-// echo '&nbsp;&nbsp;<form style="display: block;" action="test.php" method="post" />';
-// echo '<input type="text" name="breed" value="" />';
-// echo '<input type="submit" name="submit" value="add comment for all students" />';
-// echo '</form>';
-//$result = $DB->get_records_sql("SELECT * FROM `mdl_checklist_item` WHERE checklist=44");
-/// DB
+
 $servername = $CFG->dbhost;
 $username = $CFG->dbuser;
 $password = $CFG->dbpass;
